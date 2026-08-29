@@ -26,9 +26,8 @@
         .empty-text { color: #777; font-size: 16px; margin-bottom: 15px; }
         .write-link { color: #9e1638; text-decoration: underline; font-weight: 600; font-size: 16px; cursor: pointer; }
 
-        /* Grafica scheda storia con Copertina reale */
         .story-card { background-color: #0a0a0a; border: 1px solid #111; padding: 20px; border-radius: 4px; margin-bottom: 25px; }
-        .story-cover-box { width: 100%; height: 220px; border-radius: 4px; margin-bottom: 15px; overflow: hidden; background: linear-gradient(135deg, #111, #1f1f1f); border: 1px solid #1c1c1c; display: flex; align-items: center; justify-content: center; }
+        .story-cover-box { width: 100%; height: 260px; border-radius: 4px; margin-bottom: 15px; overflow: hidden; background: linear-gradient(135deg, #111, #1f1f1f); border: 1px solid #1c1c1c; display: flex; align-items: center; justify-content: center; }
         .story-cover-box img { width: 100%; height: 100%; object-fit: cover; }
         .story-cover-box .no-img-watermark { font-family: Georgia, serif; font-style: italic; font-size: 24px; color: #252525; }
         
@@ -104,7 +103,7 @@
 
             let html = '<div class="section-header"><h2>Recent Stories</h2></div>';
             filteredStories.forEach(story => {
-                // Controllo se l'autore ha messo un link immagine valido, altrimenti mostro un quadratino elegante
+                // Legge il codice dell'immagine caricata direttamente
                 const coverHtml = story.cover 
                     ? `<div class="story-cover-box"><img src="${story.cover}" alt="Cover"></div>`
                     : `<div class="story-cover-box"><span class="no-img-watermark">📚</span></div>`;
