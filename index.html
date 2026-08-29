@@ -21,35 +21,28 @@
         .btn-secondary { display: flex; align-items: center; justify-content: center; background-color: transparent; color: white; text-decoration: none; padding: 14px; border: 1px solid #222; border-radius: 2px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 40px; }
         .btn-secondary::after { content: " ↗"; margin-left: 8px; }
 
-        /* Messaggio di vuoto / Nuova storia */
+        /* Contenitore dinamico delle storie */
+        #storiesDynamicArea { margin-bottom: 40px; }
+
         .empty-stories-container {
             background-color: #0a0a0a;
             border: 1px dashed #333;
             padding: 40px 20px;
             text-align: center;
             border-radius: 4px;
-            margin-bottom: 40px;
         }
-        .empty-text {
-            color: #777;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-        .write-link {
-            color: #9e1638;
-            text-decoration: underline;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-        }
+        .empty-text { color: #777; font-size: 16px; margin-bottom: 15px; }
+        .write-link { color: #9e1638; text-decoration: underline; font-weight: 600; font-size: 16px; cursor: pointer; }
+
+        /* Grafica scheda storia pubblicata */
+        .story-card { background-color: #0a0a0a; border: 1px solid #111; padding: 20px; border-radius: 4px; margin-bottom: 20px; }
+        .tag-age { display: inline-block; border: 1px solid #0056b3; color: #0088ff; font-size: 9px; padding: 4px 8px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; border-radius: 2px; }
+        .story-title { font-family: Georgia, serif; font-size: 24px; margin-bottom: 6px; color: #fff; }
+        .story-author { font-size: 11px; text-transform: uppercase; color: #666; letter-spacing: 1px; margin-bottom: 8px; }
+        .story-desc { font-size: 14px; color: #a0a0a0; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
         .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; margin-top: 40px; }
         .section-header h2 { font-family: Georgia, serif; font-size: 32px; font-weight: 400; line-height: 1.1; }
-        .section-header .section-link { font-size: 11px; letter-spacing: 2px; color: #666; text-decoration: none; text-transform: uppercase; padding-bottom: 4px; }
-        .two-column-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px; }
-        .grid-card { display: flex; flex-direction: column; }
-        .grid-cover { background: linear-gradient(135deg, #111, #1f1f1f); aspect-ratio: 3 / 4; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; border: 1px solid #151515; position: relative; }
-        .grid-cover span.watermark { font-family: Georgia, serif; font-style: italic; font-size: 24px; color: #252525; }
         
         .popular-tags-section { margin-top: 40px; margin-bottom: 20px; }
         .tags-label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
@@ -57,27 +50,14 @@
         .tag-pill { background: transparent; color: #888; border: 1px solid #222; padding: 8px 14px; font-size: 13px; border-radius: 2px; text-decoration: none; }
         .tag-pill span { color: #444; margin-left: 4px; }
 
-        /* Box delle Categorie Cliccabili */
-        .category-box { background-color: #0a0a0a; border: 1px solid #111; padding: 24px; margin-bottom: 16px; border-radius: 4px; text-decoration: none; display: block; color: #ffffff; transition: border-color 0.2s; }
-        .category-box:hover { border-color: #9e1638; }
+        .category-box { background-color: #0a0a0a; border: 1px solid #111; padding: 24px; margin-bottom: 16px; border-radius: 4px; text-decoration: none; display: block; color: #ffffff; }
         .category-label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
         .category-title { font-family: Georgia, serif; font-size: 24px; margin-bottom: 8px; }
         .category-desc { font-size: 13px; color: #777; }
-
-        .archive-section { margin-top: 50px; padding-top: 30px; border-top: 1px solid #1a1a1a; margin-bottom: 50px; }
-        .archive-subtitle { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-        .archive-title { font-family: Georgia, serif; font-size: 32px; margin-bottom: 25px; }
-        .filter-group { margin-bottom: 20px; }
-        .filter-label { font-size: 11px; color: #444; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-        .filter-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
-        .filter-btn { background: transparent; color: #888; border: 1px solid #222; padding: 6px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
-        .filter-btn.active-red { color: #9e1638; border-color: #9e1638; }
         
         footer { margin-top: auto; padding-top: 40px; padding-bottom: 20px; border-top: 1px solid #111; }
         .footer-logo { font-family: Georgia, serif; font-style: italic; font-size: 18px; color: #ffffff; margin-bottom: 15px; }
         .footer-text { font-size: 11px; color: #444; text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.6; margin-bottom: 25px; }
-        .footer-links { display: flex; gap: 20px; }
-        .footer-links a { font-size: 12px; color: #666; text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px; }
     </style>
 </head>
 <body>
@@ -92,72 +72,92 @@
     <p class="description">Publish fanfiction, original novels and comic-panel epics. Organise your work into chapters, tag it, and let a community of readers respond with kudos and comments.</p>
     
     <a href="publish.html" class="btn-primary">Start writing</a>
-    <a href="#archive" class="btn-secondary">Browse the archive</a>
+    <a href="#categories" class="btn-secondary">Browse categories</a>
 
-    <!-- Messaggio di assenza storie in Inglese con pulsante -->
-    <div class="empty-stories-container">
-        <p class="empty-text">There are no available stories yet.</p>
-        <a href="publish.html" class="write-link">Be the first to publish one!</a>
-    </div>
-
-    <div class="section-header">
-        <h2>Trending this<br>week</h2>
-        <a href="#archive" class="section-link">View all</a>
-    </div>
-    
-    <div class="two-column-grid">
-        <div class="grid-card"><div class="grid-cover"><span class="watermark">?</span></div></div>
-        <div class="grid-card"><div class="grid-cover"><span class="watermark">?</span></div></div>
-    </div>
+    <!-- Area dinamica gestita da JavaScript -->
+    <div id="storiesDynamicArea"></div>
 
     <div class="popular-tags-section">
         <div class="tags-label">Popular Tags</div>
         <div class="tags-container">
-            <a href="#" class="tag-pill">adventure <span>(0)</span></a>
-            <a href="#" class="tag-pill">magic <span>(0)</span></a>
-            <a href="#" class="tag-pill">dark <span>(0)</span></a>
-            <a href="#" class="tag-pill">forest <span>(0)</span></a>
-            <a href="#" class="tag-pill">fun <span>(0)</span></a>
-            <a href="#" class="tag-pill">fantasy <span>(0)</span></a>
+            <a href="#" class="tag-pill">adventure</a>
+            <a href="#" class="tag-pill">magic</a>
+            <a href="#" class="tag-pill">dark</a>
+            <a href="#" class="tag-pill">forest</a>
+            <a href="#" class="tag-pill">fantasy</a>
         </div>
     </div>
 
-    <!-- Categorie in Inglese collegate alle nuove pagine -->
-    <a href="kids.html" class="category-box">
-        <div class="category-label">Category (Click to enter)</div>
+    <div class="section-header" id="categories">
+        <h2>Categories</h2>
+    </div>
+
+    <!-- Categorie collegate a filtri automatici temporanei -->
+    <div class="category-box" onclick="filterCategory('kids')" style="cursor:pointer;">
+        <div class="category-label">Filter stories</div>
         <div class="category-title">For kids</div>
         <div class="category-desc">Edifying stories, delicate worlds.</div>
-    </a>
+    </div>
 
-    <a href="teens.html" class="category-box">
-        <div class="category-label">Category (Click to enter)</div>
+    <div class="category-box" onclick="filterCategory('teens')" style="cursor:pointer;">
+        <div class="category-label">Filter stories</div>
         <div class="category-title">For teens</div>
         <div class="category-desc">The transition to adulthood, the first magic.</div>
-    </a>
+    </div>
 
-    <a href="adults.html" class="category-box">
-        <div class="category-label">Category (Click to enter)</div>
+    <div class="category-box" onclick="filterCategory('adults')" style="cursor:pointer;">
+        <div class="category-label">Filter stories</div>
         <div class="category-title">For adults</div>
         <div class="category-desc">Mature themes and dark motifs.</div>
-    </a>
-
-    <div class="archive-section" id="archive">
-        <div class="archive-subtitle">The archive</div>
-        <div class="archive-title">Browse the stories</div>
-        <div class="filter-group">
-            <div class="filter-label">Category</div>
-            <div class="filter-buttons">
-                <button class="filter-btn active-red">All</button>
-                <button class="filter-btn">Kids</button>
-                <button class="filter-btn">Teens</button>
-                <button class="filter-btn">Experts</button>
-            </div>
-        </div>
     </div>
 
     <footer>
         <div class="footer-logo">FictionHub</div>
         <div class="footer-text">A quiet house for storytellers<br>• 2026</div>
     </footer>
+
+    <script>
+        // Funzione per caricare le storie nella Home
+        function loadStories(filter = 'all') {
+            const container = document.getElementById('storiesDynamicArea');
+            const stories = JSON.parse(localStorage.getItem('userStories')) || [];
+            
+            // Filtra se viene selezionata una categoria
+            const filteredStories = filter === 'all' ? stories : stories.filter(s => s.category === filter);
+
+            if (filteredStories.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-stories-container">
+                        <p class="empty-text">${filter === 'all' ? 'There are no available stories yet.' : 'No stories found in this category.'}</p>
+                        <a href="publish.html" class="write-link">Be the first to publish one!</a>
+                    </div>
+                `;
+                return;
+            }
+
+            // Genera i box delle storie scritte
+            let html = '<div class="section-header"><h2>Recent Stories</h2></div>';
+            filteredStories.forEach(story => {
+                html += `
+                    <div class="story-card">
+                        <div class="tag-age">For ${story.category}</div>
+                        <div class="story-title">${story.title}</div>
+                        <div class="story-author">By ${story.author} • ${story.date}</div>
+                        <div class="story-desc">${story.content}</div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function filterCategory(cat) {
+            loadStories(cat);
+            window.scrollTo({ top: document.getElementById('storiesDynamicArea').offsetTop - 20, behavior: 'smooth' });
+        }
+
+        // Avvia il caricamento all'apertura del sito
+        window.onload = () => loadStories('all');
+    </script>
 </body>
 </html>
+
