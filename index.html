@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,26 +8,41 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background-color: #050505; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 20px 16px; display: flex; flex-direction: column; min-height: 100vh; }
         header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid #1a1a1a; margin-bottom: 30px; }
-        .logo { font-family: Georgia, serif; font-size: 22px; font-style: italic; }
+        .logo { font-family: Georgia, serif; font-size: 22px; font-style: italic; text-decoration: none; color: #ffffff; }
         .logo span { color: #9e1638; font-style: normal; }
         .menu-icon { font-size: 24px; }
         .issue-tag { font-size: 10px; letter-spacing: 2px; color: #666; text-transform: uppercase; margin-bottom: 15px; }
         h1.main-title { font-family: Georgia, serif; font-size: 42px; font-weight: 400; line-height: 1.1; margin-bottom: 20px; }
         h1.main-title em { font-style: italic; }
         .description { font-size: 16px; line-height: 1.5; color: #a0a0a0; margin-bottom: 30px; }
+        
         .btn-primary { display: flex; align-items: center; justify-content: center; background-color: #9e1638; color: white; text-decoration: none; padding: 14px; border-radius: 2px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
         .btn-primary::after { content: " ✎"; margin-left: 8px; }
         .btn-secondary { display: flex; align-items: center; justify-content: center; background-color: transparent; color: white; text-decoration: none; padding: 14px; border: 1px solid #222; border-radius: 2px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 40px; }
         .btn-secondary::after { content: " ↗"; margin-left: 8px; }
-        .story-card { margin-bottom: 40px; }
-        .story-cover { background: linear-gradient(135deg, #111, #1f1f1f); width: 100%; height: 200px; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 1px solid #151515; position: relative; }
-        .story-cover span.watermark { font-family: Georgia, serif; font-style: italic; font-size: 28px; color: #252525; letter-spacing: 2px; }
-        .badge-comic { position: absolute; top: 10px; left: 10px; background-color: rgba(0,0,0,0.8); border: 1px solid #333; padding: 4px 8px; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
-        .tag-age { display: inline-block; border: 1px solid #0056b3; color: #0088ff; font-size: 9px; padding: 4px 8px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-        .story-title { font-family: Georgia, serif; font-size: 24px; margin-bottom: 6px; }
-        .story-author { font-size: 11px; text-transform: uppercase; color: #666; letter-spacing: 1px; margin-bottom: 8px; }
-        .story-desc { font-size: 14px; color: #888; margin-bottom: 12px; }
-        .story-stats { font-size: 12px; color: #555; display: flex; gap: 12px; }
+
+        /* Messaggio di vuoto / Nuova storia */
+        .empty-stories-container {
+            background-color: #0a0a0a;
+            border: 1px dashed #333;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 4px;
+            margin-bottom: 40px;
+        }
+        .empty-text {
+            color: #777;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .write-link {
+            color: #9e1638;
+            text-decoration: underline;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
         .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; margin-top: 40px; }
         .section-header h2 { font-family: Georgia, serif; font-size: 32px; font-weight: 400; line-height: 1.1; }
         .section-header .section-link { font-size: 11px; letter-spacing: 2px; color: #666; text-decoration: none; text-transform: uppercase; padding-bottom: 4px; }
@@ -35,16 +50,20 @@
         .grid-card { display: flex; flex-direction: column; }
         .grid-cover { background: linear-gradient(135deg, #111, #1f1f1f); aspect-ratio: 3 / 4; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; border: 1px solid #151515; position: relative; }
         .grid-cover span.watermark { font-family: Georgia, serif; font-style: italic; font-size: 24px; color: #252525; }
-        .grid-card .story-title { font-size: 18px; line-height: 1.2; margin-top: 4px; }
+        
         .popular-tags-section { margin-top: 40px; margin-bottom: 20px; }
         .tags-label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
         .tags-container { display: flex; flex-wrap: wrap; gap: 10px; padding-bottom: 30px; border-bottom: 1px solid #111; }
         .tag-pill { background: transparent; color: #888; border: 1px solid #222; padding: 8px 14px; font-size: 13px; border-radius: 2px; text-decoration: none; }
         .tag-pill span { color: #444; margin-left: 4px; }
-        .category-box { background-color: #0a0a0a; border: 1px solid #111; padding: 24px; margin-bottom: 16px; border-radius: 4px; }
+
+        /* Box delle Categorie Cliccabili */
+        .category-box { background-color: #0a0a0a; border: 1px solid #111; padding: 24px; margin-bottom: 16px; border-radius: 4px; text-decoration: none; display: block; color: #ffffff; transition: border-color 0.2s; }
+        .category-box:hover { border-color: #9e1638; }
         .category-label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
         .category-title { font-family: Georgia, serif; font-size: 24px; margin-bottom: 8px; }
         .category-desc { font-size: 13px; color: #777; }
+
         .archive-section { margin-top: 50px; padding-top: 30px; border-top: 1px solid #1a1a1a; margin-bottom: 50px; }
         .archive-subtitle { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
         .archive-title { font-family: Georgia, serif; font-size: 32px; margin-bottom: 25px; }
@@ -53,6 +72,7 @@
         .filter-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
         .filter-btn { background: transparent; color: #888; border: 1px solid #222; padding: 6px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
         .filter-btn.active-red { color: #9e1638; border-color: #9e1638; }
+        
         footer { margin-top: auto; padding-top: 40px; padding-bottom: 20px; border-top: 1px solid #111; }
         .footer-logo { font-family: Georgia, serif; font-style: italic; font-size: 18px; color: #ffffff; margin-bottom: 15px; }
         .footer-text { font-size: 11px; color: #444; text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.6; margin-bottom: 25px; }
@@ -61,67 +81,83 @@
     </style>
 </head>
 <body>
+
     <header>
-        <div class="logo">Narrativa <span>Centro</span></div>
+        <a href="index.html" class="logo">Narrativa <span>Centro</span></a>
         <div class="menu-icon">☰</div>
     </header>
+
     <div class="issue-tag">Issue 001 • A Community for Storytellers</div>
     <h1 class="main-title">Where stories<br><em>find their</em><br>readers.</h1>
     <p class="description">Publish fanfiction, original novels and comic-panel epics. Organise your work into chapters, tag it, and let a community of readers respond with kudos and comments.</p>
-    <a href="#" class="btn-primary">Inizia a scrivere</a>
-    <a href="#" class="btn-secondary">Sfoglia l'archivio</a>
-    <div class="story-card">
-        <div class="story-cover"><span class="watermark">UN</span></div>
-        <div class="tag-age">Adolescenti</div>
-        <div class="story-title">La storia di Alice</div>
-        <div class="story-author">Di Alice3865</div>
-        <div class="story-desc">descrizione</div>
-        <div class="story-stats"><span>♡ 1</span> <span>💬 1</span> <span>📖 1 cap.</span></div>
+    
+    <a href="publish.html" class="btn-primary">Start writing</a>
+    <a href="#archive" class="btn-secondary">Browse the archive</a>
+
+    <!-- Messaggio di assenza storie in Inglese con pulsante -->
+    <div class="empty-stories-container">
+        <p class="empty-text">There are no available stories yet.</p>
+        <a href="publish.html" class="write-link">Be the first to publish one!</a>
     </div>
+
     <div class="section-header">
-        <h2>Tendenze della<br>settimana</h2>
-        <a href="#" class="section-link">Vedi tutto</a>
+        <h2>Trending this<br>week</h2>
+        <a href="#archive" class="section-link">View all</a>
     </div>
+    
     <div class="two-column-grid">
-        <div class="grid-card">
-            <div class="grid-cover"><span class="watermark">UN</span></div>
-            <div class="tag-age">Adolescenti</div>
-            <div class="story-title">Storia di Alice E2E</div>
-            <div class="story-author">Di Alice45165</div>
-            <div class="story-stats"><span>♡ 1</span> <span>💬 1</span> <span>📖 1 cap.</span></div>
-        </div>
-        <div class="grid-card">
-            <div class="grid-cover"><span class="watermark">T</span></div>
-            <div class="tag-age">Adolescenti</div>
-            <div class="story-title">La foresta silenziosa</div>
-            <div class="story-author">Di Alice</div>
-            <div class="story-stats"><span>♡ 0</span> <span>💬 0</span> <span>📖 1 cap.</span></div>
-        </div>
-        <div class="grid-card">
-            <div class="grid-cover"><div class="badge-comic">📁 Comic</div><span class="watermark">UN</span></div>
-        </div>
-        <div class="grid-card">
-            <div class="grid-cover"><span class="watermark">UN</span></div>
-        </div>
+        <div class="grid-card"><div class="grid-cover"><span class="watermark">?</span></div></div>
+        <div class="grid-card"><div class="grid-cover"><span class="watermark">?</span></div></div>
     </div>
+
     <div class="popular-tags-section">
-        <div class="tags-label">Tag Popolari</div>
+        <div class="tags-label">Popular Tags</div>
         <div class="tags-container">
-            <a href="#" class="tag-pill">avventura <span>(1)</span></a>
-            <a href="#" class="tag-pill">magia <span>(1)</span></a>
-            <a href="#" class="tag-pill">buio <span>(1)</span></a>
-            <a href="#" class="tag-pill">foresta <span>(1)</span></a>
-            <a href="#" class="tag-pill">divertimento <span>(1)</span></a>
-            <a href="#" class="tag-pill">fantasia <span>(1)</span></a>
+            <a href="#" class="tag-pill">adventure <span>(0)</span></a>
+            <a href="#" class="tag-pill">magic <span>(0)</span></a>
+            <a href="#" class="tag-pill">dark <span>(0)</span></a>
+            <a href="#" class="tag-pill">forest <span>(0)</span></a>
+            <a href="#" class="tag-pill">fun <span>(0)</span></a>
+            <a href="#" class="tag-pill">fantasy <span>(0)</span></a>
         </div>
     </div>
-    <div class="section-header">
-        <h2>Appena<br>pubblicato</h2>
-        <a href="#" class="section-link">Qualunque cosa</a>
+
+    <!-- Categorie in Inglese collegate alle nuove pagine -->
+    <a href="kids.html" class="category-box">
+        <div class="category-label">Category (Click to enter)</div>
+        <div class="category-title">For kids</div>
+        <div class="category-desc">Edifying stories, delicate worlds.</div>
+    </a>
+
+    <a href="teens.html" class="category-box">
+        <div class="category-label">Category (Click to enter)</div>
+        <div class="category-title">For teens</div>
+        <div class="category-desc">The transition to adulthood, the first magic.</div>
+    </a>
+
+    <a href="adults.html" class="category-box">
+        <div class="category-label">Category (Click to enter)</div>
+        <div class="category-title">For adults</div>
+        <div class="category-desc">Mature themes and dark motifs.</div>
+    </a>
+
+    <div class="archive-section" id="archive">
+        <div class="archive-subtitle">The archive</div>
+        <div class="archive-title">Browse the stories</div>
+        <div class="filter-group">
+            <div class="filter-label">Category</div>
+            <div class="filter-buttons">
+                <button class="filter-btn active-red">All</button>
+                <button class="filter-btn">Kids</button>
+                <button class="filter-btn">Teens</button>
+                <button class="filter-btn">Experts</button>
+            </div>
+        </div>
     </div>
-    <div class="two-column-grid">
-        <div class="grid-card">
-            <div class="grid-cover"><span class="watermark">UN</span></div>
-            <div class="tag-age">Adolescenti</div>
-            <div class="story-title">Storia di Alice E2E</div>
-            <div class="story-author">Di Alice45165</div>
+
+    <footer>
+        <div class="footer-logo">FictionHub</div>
+        <div class="footer-text">A quiet house for storytellers<br>• 2026</div>
+    </footer>
+</body>
+</html>
