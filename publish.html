@@ -9,77 +9,36 @@
         body { background-color: #050505; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 20px 16px; }
         header { display: flex; align-items: center; padding-bottom: 20px; border-bottom: 1px solid #1a1a1a; margin-bottom: 30px; }
         .back-link { color: #9e1638; text-decoration: none; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-        
         h1 { font-family: Georgia, serif; font-size: 32px; font-weight: 400; margin-bottom: 25px; }
-        
         .form-group { margin-bottom: 20px; }
         label { display: block; font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-        
-        input[type="text"], select, textarea {
-            width: 100%;
-            background-color: #0a0a0a;
-            border: 1px solid #222;
-            color: #ffffff;
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 4px;
-            font-family: inherit;
+        input[type="text"], input[type="file"], select, textarea {
+            width: 100%; background-color: #0a0a0a; border: 1px solid #222; color: #ffffff; padding: 12px; font-size: 16px; border-radius: 4px; font-family: inherit;
         }
-        input[type="text"]:focus, select:focus, textarea:focus {
-            border-color: #9e1638;
-            outline: none;
-        }
+        input[type="file"] { padding: 8px; }
+        input[type="text"]:focus, select:focus, textarea:focus { border-color: #9e1638; outline: none; }
         textarea { min-height: 200px; resize: vertical; }
-        
-        .btn-submit {
-            background-color: #9e1638;
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 16px;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            border-radius: 2px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        
-        .success-message {
-            display: none;
-            background-color: #0f2d19;
-            border: 1px solid #1e5c32;
-            color: #52c47c;
-            padding: 15px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            text-align: center;
-        }
+        .btn-submit { background-color: #9e1638; color: white; border: none; width: 100%; padding: 16px; font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-radius: 2px; cursor: pointer; margin-top: 10px; }
+        .success-message { display: none; background-color: #0f2d19; border: 1px solid #1e5c32; color: #52c47c; padding: 15px; border-radius: 4px; margin-bottom: 20px; font-size: 14px; text-align: center; }
     </style>
 </head>
 <body>
-
-    <header>
-        <a href="index.html" class="back-link">← Back to Home</a>
-    </header>
-
+    <header><a href="index.html" class="back-link">← Back to Home</a></header>
     <h1>Publish Your Story</h1>
-
-    <div id="successNotice" class="success-message">🎉 Story successfully published locally! Go back to Home to check.</div>
-
+    <div id="successNotice" class="success-message">🎉 Story successfully published! Go back to Home to check.</div>
     <form id="storyForm">
         <div class="form-group">
             <label for="storyTitle">Title</label>
             <input type="text" id="storyTitle" placeholder="Enter story title..." required>
         </div>
-
         <div class="form-group">
             <label for="storyAuthor">Author Name</label>
             <input type="text" id="storyAuthor" placeholder="Your username..." required>
         </div>
-
+        <div class="form-group">
+            <label for="storyCoverFile">Upload Cover Image (Digital drawing, sketch or photo)</label>
+            <input type="file" id="storyCoverFile" accept="image/*">
+        </div>
         <div class="form-group">
             <label for="storyCategory">Category</label>
             <select id="storyCategory" required>
@@ -88,42 +47,48 @@
                 <option value="adults">For adults</option>
             </select>
         </div>
-
         <div class="form-group">
             <label for="storyContent">Story / Content</label>
             <textarea id="storyContent" placeholder="Write your masterpiece here..." required></textarea>
         </div>
-
         <button type="submit" class="btn-submit">Publish Story</button>
     </form>
-
     <script>
         document.getElementById('storyForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Raccoglie i dati inseriti
-            const newStory = {
-                title: document.getElementById('storyTitle').value,
-                author: document.getElementById('storyAuthor').value,
-                category: document.getElementById('storyCategory').value,
-                content: document.getElementById('storyContent').value,
-                date: new Date().toLocaleDateString()
-            };
+            const fileInput = document.getElementById('storyCoverFile');
+            const file = fileInput.files[0];
             
-            // Salva nella memoria del browser (Local Storage)
-            let stories = JSON.parse(localStorage.getItem('userStories')) || [];
-            stories.unshift(newStory);
-            localStorage.setItem('userStories', JSON.stringify(stories));
-            
-            // Mostra avviso di successo e svuota il modulo
-            document.getElementById('successNotice').style.display = 'block';
-            document.getElementById('storyForm').reset();
-            
-            // Ritorna in cima alla pagina per vedere l'avviso
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Funzione per salvare la storia
+            function saveStory(imageDataUrl = '') {
+                const newStory = {
+                    title: document.getElementById('storyTitle').value,
+                    author: document.getElementById('storyAuthor').value,
+                    cover: imageDataUrl, // Salva l'immagine vera convertita
+                    category: document.getElementById('storyCategory').value,
+                    content: document.getElementById('storyContent').value,
+                    date: new Date().toLocaleDateString()
+                };
+                let stories = JSON.parse(localStorage.getItem('userStories')) || [];
+                stories.unshift(newStory);
+                localStorage.setItem('userStories', JSON.stringify(stories));
+                document.getElementById('successNotice').style.display = 'block';
+                document.getElementById('storyForm').reset();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Se l'utente ha inserito una foto, la converte, altrimenti salva subito senza foto
+            if (file) {
+                const reader = new FileReader();
+                reader.onloadend = function() {
+                    saveStory(reader.result);
+                }
+                reader.readAsDataURL(file);
+            } else {
+                saveStory('');
+            }
         });
     </script>
-
 </body>
 </html>
-
