@@ -6,40 +6,15 @@
     <title>Narrativa Centro - FictionHub</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: #050505; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 20px 16px; display: flex; flex-direction: column; min-height: 100vh; position: relative; }
-        
-        /* Header */
-        header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid #1a1a1a; margin-bottom: 30px; position: relative; z-index: 10; }
+        body { background-color: #050505; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 20px 16px; display: flex; flex-direction: column; min-height: 100vh; }
+        header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid #1a1a1a; margin-bottom: 30px; position: relative; }
         .logo { font-family: Georgia, serif; font-size: 22px; font-style: italic; text-decoration: none; color: #ffffff; }
         .logo span { color: #9e1638; font-style: normal; }
-        .menu-icon { font-size: 24px; cursor: pointer; user-select: none; padding: 5px; }
+        .menu-icon { font-size: 24px; cursor: pointer; padding: 5px; }
 
-        /* NUOVO STILE: Menu a tendina a comparsa */
-        .dropdown-menu { 
-            display: none; 
-            position: absolute; 
-            top: 50px; 
-            right: 0; 
-            background-color: #0a0a0a; 
-            border: 1px solid #222; 
-            border-radius: 4px; 
-            width: 200px; 
-            padding: 10px 0; 
-            box-shadow: 0px 4px 12px rgba(0,0,0,0.5); 
-            z-index: 100;
-        }
+        .dropdown-menu { display: none; position: absolute; top: 50px; right: 0; background-color: #0a0a0a; border: 1px solid #222; border-radius: 4px; width: 200px; padding: 10px 0; box-shadow: 0px 4px 12px rgba(0,0,0,0.5); z-index: 100; }
         .dropdown-menu.show { display: block; }
-        .dropdown-menu a { 
-            display: block; 
-            color: #aaa; 
-            text-decoration: none; 
-            padding: 12px 16px; 
-            font-size: 14px; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            border-bottom: 1px solid #111;
-        }
-        .dropdown-menu a:last-child { border-bottom: none; }
+        .dropdown-menu a { display: block; color: #aaa; text-decoration: none; padding: 12px 16px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #111; }
         .dropdown-menu a:hover { color: #fff; background-color: #111; }
 
         .issue-tag { font-size: 10px; letter-spacing: 2px; color: #666; text-transform: uppercase; margin-bottom: 15px; }
@@ -50,7 +25,6 @@
         .btn-primary { display: flex; align-items: center; justify-content: center; background-color: #9e1638; color: white; text-decoration: none; padding: 14px; border-radius: 2px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
         .btn-primary::after { content: " ✎"; margin-left: 8px; }
         .btn-secondary { display: flex; align-items: center; justify-content: center; background-color: transparent; color: white; text-decoration: none; padding: 14px; border: 1px solid #222; border-radius: 2px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 40px; }
-        .btn-secondary::after { content: " ↗"; margin-left: 8px; }
 
         #storiesDynamicArea { margin-bottom: 40px; }
         .empty-stories-container { background-color: #0a0a0a; border: 1px dashed #333; padding: 40px 20px; text-align: center; border-radius: 4px; }
@@ -60,46 +34,47 @@
         .story-card { background-color: #0a0a0a; border: 1px solid #111; padding: 20px; border-radius: 4px; margin-bottom: 35px; }
         .story-cover-box { width: 100%; height: 260px; border-radius: 4px; margin-bottom: 15px; overflow: hidden; background: linear-gradient(135deg, #111, #1f1f1f); border: 1px solid #1c1c1c; display: flex; align-items: center; justify-content: center; }
         .story-cover-box img { width: 100%; height: 100%; object-fit: cover; }
-        .story-cover-box .no-img-watermark { font-family: Georgia, serif; font-style: italic; font-size: 24px; color: #252525; }
         
-        .tag-age { display: inline-block; border: 1px solid #0056b3; color: #0088ff; font-size: 9px; padding: 4px 8px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; border-radius: 2px; }
+        .meta-line { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
+        .badge-type { background-color: #9e1638; color: #fff; font-size: 9px; padding: 4px 8px; text-transform: uppercase; font-weight: 600; border-radius: 2px; }
+        .badge-fandom { background-color: #222; color: #ccc; font-size: 9px; padding: 4px 8px; font-weight: 600; border-radius: 2px; border: 1px solid #333; }
+        .tag-age { border: 1px solid #0056b3; color: #0088ff; font-size: 9px; padding: 4px 8px; text-transform: uppercase; border-radius: 2px; }
+        
         .story-title { font-family: Georgia, serif; font-size: 24px; margin-bottom: 6px; color: #fff; }
-        
-        .author-line { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
-        .story-author { font-size: 12px; text-transform: uppercase; color: #777; letter-spacing: 1px; }
-        .btn-follow { background: transparent; border: 1px solid #9e1638; color: #9e1638; font-size: 10px; padding: 4px 10px; border-radius: 2px; text-transform: uppercase; cursor: pointer; font-weight: 600; }
+        .author-line { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .story-author { font-size: 12px; text-transform: uppercase; color: #777; }
+        .btn-follow { background: transparent; border: 1px solid #9e1638; color: #9e1638; font-size: 10px; padding: 4px 10px; border-radius: 2px; text-transform: uppercase; cursor: pointer; }
         .btn-follow.following { background-color: #9e1638; color: #fff; }
 
-        .chapter-selector-box { margin-bottom: 15px; }
-        .chapter-select { background-color: #050505; border: 1px solid #222; color: #aaa; padding: 8px; width: 100%; border-radius: 4px; font-size: 14px; }
-        .story-desc { font-size: 16px; color: #dddddd; line-height: 1.5; white-space: pre-line; margin-bottom: 20px; background: #070707; padding: 12px; border-radius: 4px; border-left: 2px solid #222; }
+        .summary-box { background: #111; padding: 12px; border-radius: 4px; font-size: 14px; color: #aaa; margin-bottom: 15px; border-left: 3px solid #555; font-style: italic; }
+        .story-tags-container { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
+        .story-tag-pill { font-size: 11px; color: #888; background: #141414; padding: 3px 8px; border-radius: 2px; border: 1px solid #222; }
 
-        .social-bar { display: flex; gap: 20px; align-items: center; padding-top: 10px; border-top: 1px solid #151515; margin-bottom: 15px; }
-        .social-btn { background: transparent; border: none; color: #666; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .chapter-select { background-color: #050505; border: 1px solid #222; color: #aaa; padding: 8px; width: 100%; border-radius: 4px; font-size: 14px; margin-bottom: 15px; }
+        .story-desc { font-size: 16px; color: #dddddd; line-height: 1.5; white-space: pre-line; margin-bottom: 20px; background: #070707; padding: 12px; border-radius: 4px; }
+
+        .social-bar { display: flex; gap: 20px; padding-top: 10px; border-top: 1px solid #151515; margin-bottom: 15px; }
+        .social-btn { background: transparent; border: none; color: #666; font-size: 14px; cursor: pointer; }
 
         .comments-section { background-color: #050505; padding: 12px; border-radius: 4px; border: 1px solid #151515; }
         .comment-input-box { display: flex; gap: 8px; margin-bottom: 12px; }
         .comment-input { flex: 1; background-color: #0a0a0a; border: 1px solid #222; color: #fff; padding: 8px; font-size: 14px; border-radius: 4px; }
-        .btn-comment-submit { background-color: #222; color: #fff; border: none; padding: 8px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; text-transform: uppercase; }
+        .btn-comment-submit { background-color: #222; color: #fff; border: none; padding: 8px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; }
         .comment-list { list-style: none; display: flex; flex-direction: column; gap: 8px; max-height: 150px; overflow-y: auto; }
-        .comment-item { font-size: 13px; color: #aaa; line-height: 1.3; padding-bottom: 6px; border-bottom: 1px dashed #111; text-align: left; }
-        .comment-item strong { color: #9e1638; margin-right: 4px; }
+        .comment-item { font-size: 13px; color: #aaa; padding-bottom: 6px; border-bottom: 1px dashed #111; text-align: left; }
+        .comment-item strong { color: #9e1638; }
 
         .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; margin-top: 40px; }
         .section-header h2 { font-family: Georgia, serif; font-size: 32px; font-weight: 400; line-height: 1.1; }
         .category-box { background-color: #0a0a0a; border: 1px solid #111; padding: 24px; margin-bottom: 16px; border-radius: 4px; text-decoration: none; display: block; color: #ffffff; }
-        .category-label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
         .category-title { font-family: Georgia, serif; font-size: 24px; margin-bottom: 8px; }
         .category-desc { font-size: 13px; color: #777; }
         footer { margin-top: auto; padding-top: 40px; padding-bottom: 20px; border-top: 1px solid #111; }
-        .footer-logo { font-family: Georgia, serif; font-style: italic; font-size: 18px; color: #ffffff; margin-bottom: 15px; }
-        .footer-text { font-size: 11px; color: #444; text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.6; margin-bottom: 25px; }
     </style>
 </head>
 <body>
     <header>
         <a href="index.html" class="logo">Narrativa <span>Centro</span></a>
-        <!-- Icona Menu con tendina incorporata -->
         <div style="position: relative;">
             <div class="menu-icon" onclick="toggleMenu()">☰</div>
             <div class="dropdown-menu" id="hamburgerDropdown">
@@ -115,27 +90,31 @@
     <p class="description">Publish fanfiction, original novels and comic-panel epics. Organise your work into chapters, tag it, and let a community of readers respond with kudos and comments.</p>
     
     <a href="publish.html" class="btn-primary">Start writing</a>
-    <a href="#categories" class="btn-secondary">Browse categories</a>
+    <a href="#categories" class="btn-secondary">Browse Types & Categories</a>
 
     <div id="storiesDynamicArea"></div>
 
-    <div class="section-header" id="categories"><h2>Categories</h2></div>
-    <div class="category-box" onclick="filterCategory('kids')" style="cursor:pointer;">
-        <div class="category-label">Filter stories</div><div class="category-title">For kids</div><div class="category-desc">Edifying stories, delicate worlds.</div>
+    <div class="section-header" id="categories"><h2>Browse by Type</h2></div>
+    <div class="category-box" onclick="loadStories('all', 'fanfiction')" style="cursor:pointer;">
+        <div class="category-title">Fanfiction</div>
+        <div class="category-desc">Stories based on existing fandoms and worlds.</div>
     </div>
-    <div class="category-box" onclick="filterCategory('teens')" style="cursor:pointer;">
-        <div class="category-label">Filter stories</div><div class="category-title">For teens</div><div class="category-desc">The transition to adulthood, the first magic.</div>
+    <div class="category-box" onclick="loadStories('all', 'original')" style="cursor:pointer;">
+        <div class="category-title">Original Novels</div>
+        <div class="category-desc">Fresh, fully original light-novels and fiction books.</div>
     </div>
-    <div class="category-box" onclick="filterCategory('adults')" style="cursor:pointer;">
-        <div class="category-label">Filter stories</div><div class="category-title">For adults</div><div class="category-desc">Mature themes and dark motifs.</div>
+    <div class="category-box" onclick="loadStories('all', 'comic')" style="cursor:pointer;">
+        <div class="category-title">Comics</div>
+        <div class="category-desc">Visual stories and graphic panels.</div>
     </div>
 
-    <footer><div class="footer-logo">FictionHub</div><div class="footer-text">A quiet house for storytellers<br>• 2026</div></footer>
+    <div class="section-header"><h2>Age Ratings</h2></div>
+    <div style="display:flex; gap:10px; margin-bottom:40px;">
+        <button style="flex:1; background:#0a0a0a; border:1px solid #222; color:#fff; padding:12px; border-radius:4px; font-size:12px; text-transform:uppercase;" onclick="loadStories('kids')">Kids</button>
+        <button style="flex:1; background:#0a0a0a; border:1px solid #222; color:#fff; padding:12px; border-radius:4px; font-size:12px; text-transform:uppercase;" onclick="loadStories('teens')">Teens</button>
+        <button style="flex:1; background:#0a0a0a; border:1px solid #222; color:#fff; padding:12px; border-radius:4px; font-size:12px; text-transform:uppercase;" onclick="loadStories('adults')">Adults</button>
+    </div>
+
+    <footer><div class="logo" style="font-size:18px;">FictionHub</div><div style="font-size:11px; color:#444; margin-top:5px;">A quiet house for storytellers • 2026</div></footer>
 
     <script>
-        // Funzione per aprire/chiudere il menu Hamburger
-        function toggleMenu() {
-            document.getElementById('hamburgerDropdown').classList.toggle('show');
-        }
-
-        // Chiude il menu se l'utente clicca fuori
