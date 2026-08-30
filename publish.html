@@ -17,7 +17,7 @@
         }
         input[type="file"] { padding: 8px; }
         input[type="text"]:focus, select:focus, textarea:focus { border-color: #9e1638; outline: none; }
-        textarea { min-height: 200px; resize: vertical; }
+        textarea { min-height: 120px; resize: vertical; }
         .btn-submit { background-color: #9e1638; color: white; border: none; width: 100%; padding: 16px; font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-radius: 2px; cursor: pointer; margin-top: 10px; }
         .success-message { display: none; background-color: #0f2d19; border: 1px solid #1e5c32; color: #52c47c; padding: 15px; border-radius: 4px; margin-bottom: 20px; font-size: 14px; text-align: center; }
     </style>
@@ -31,54 +31,103 @@
         <div class="form-group">
             <label for="publishType">What are you publishing?</label>
             <select id="publishType" required onchange="togglePublishType()">
-                <option value="new">A Brand New Story / Comic</option>
-                <option value="chapter">A New Chapter for an Existing Story</option>
+                <option value="new">A Brand New Work</option>
+                <option value="chapter">A New Chapter for an Existing Work</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="storyTitle">Story Title</label>
-            <input type="text" id="storyTitle" placeholder="Enter story title..." required>
-            <!-- Lista dinamica per selezionare la storia se si aggiunge un capitolo -->
+            <label for="storyTitle">Work Title</label>
+            <input type="text" id="storyTitle" placeholder="Enter title..." required>
             <select id="existingStorySelect" style="display: none;"></select>
         </div>
 
+        <!-- CAMPI NASCOSTI SE SI AGGIUNGE SOLO UN CAPITOLO -->
         <div id="newStoryFields">
             <div class="form-group">
                 <label for="storyAuthor">Author Name</label>
                 <input type="text" id="storyAuthor" placeholder="Your username..." required>
             </div>
+
+            <div class="form-group">
+                <label for="workType">Type of Work</label>
+                <select id="workType" onchange="handleWorkTypeChange()">
+                    <option value="fanfiction">Fanfiction</option>
+                    <option value="original">Original Novel</option>
+                    <option value="comic">Comic</option>
+                </select>
+            </div>
+
+            <!-- Campo dinamico: Fandom (Solo per Fanfiction) -->
+            <div class="form-group" id="fandomGroup">
+                <label for="storyFandom">Fandom *</label>
+                <input type="text" id="storyFandom" placeholder="e.g. Harry Potter, Marvel, Anime Name..." required>
+            </div>
+
+            <!-- Campo dinamico: Genere (Per Originali e Fumetti) -->
+            <div class="form-group" id="genreGroup" style="display: none;">
+                <label for="storyGenre">Genre</label>
+                <input type="text" id="storyGenre" placeholder="e.g. Horror, BL, Romance, Fantasy...">
+            </div>
+
+            <div class="form-group">
+                <label for="storyAge">Age Rating</label>
+                <select id="storyAge">
+                    <option value="kids">For Kids</option>
+                    <option value="teens">For Teens</option>
+                    <option value="adults">For Adults</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="storyShips">Ships / Relationships & Tags (Comma separated)</label>
+                <input type="text" id="storyShips" placeholder="e.g. Character A/Character B, Enemies to Lovers, Angst...">
+            </div>
+
+            <div class="form-group">
+                <label for="storySummary">Summary (Optional)</label>
+                <textarea id="storySummary" placeholder="Provide a brief summary or teaser of your story..."></textarea>
+            </div>
+
             <div class="form-group">
                 <label for="storyCoverFile">Upload Cover Image</label>
                 <input type="file" id="storyCoverFile" accept="image/*">
-            </div>
-            <div class="form-group">
-                <label for="storyCategory">Category</label>
-                <select id="storyCategory">
-                    <option value="kids">For kids</option>
-                    <option value="teens">For teens</option>
-                    <option value="adults">For adults</option>
-                </select>
             </div>
         </div>
 
         <div id="chapterFields" style="display: none;">
             <div class="form-group">
                 <label for="chapterNumber">Chapter Number / Name</label>
-                <input type="text" id="chapterNumber" placeholder="e.g. Chapter 2, Act II...">
+                <input type="text" id="chapterNumber" placeholder="e.g. Chapter 2...">
             </div>
         </div>
 
         <div class="form-group">
-            <label for="storyContent">Content (Text or Comic description)</label>
-            <textarea id="storyContent" placeholder="Write your content here..." required></textarea>
+            <label for="storyContent">Chapter Content</label>
+            <textarea id="storyContent" style="min-height: 250px;" placeholder="Write your content here..." required></textarea>
         </div>
         
         <button type="submit" class="btn-submit">Publish Now</button>
     </form>
 
     <script>
-        // Carica le storie esistenti se si vuole aggiungere un capitolo
+        function handleWorkTypeChange() {
+            const type = document.getElementById('workType').value;
+            const fandomGroup = document.getElementById('fandomGroup');
+            const genreGroup = document.getElementById('genreGroup');
+            const fandomInput = document.getElementById('storyFandom');
+
+            if (type === 'fanfiction') {
+                fandomGroup.style.display = 'block';
+                fandomInput.required = true;
+                genreGroup.style.display = 'none';
+            } else {
+                fandomGroup.style.display = 'none';
+                fandomInput.required = false;
+                genreGroup.style.display = 'block';
+            }
+        }
+
         function togglePublishType() {
             const type = document.getElementById('publishType').value;
             const newFields = document.getElementById('newStoryFields');
@@ -99,15 +148,14 @@
                 selectInput.style.display = 'block';
                 titleInput.required = false;
 
-                // Popola il menu a tendina con le storie esistenti
                 const stories = JSON.parse(localStorage.getItem('userStories')) || [];
                 if(stories.length === 0) {
-                    alert("You haven't created any stories yet! Create a new story first.");
+                    alert("No works created yet! Start a new work first.");
                     document.getElementById('publishType').value = 'new';
                     togglePublishType();
                     return;
                 }
-                selectInput.innerHTML = stories.map((s, idx) => `<option value="${idx}">${s.title} by ${s.author}</option>`).join('');
+                selectInput.innerHTML = stories.map((s, idx) => `<option value="${idx}">${s.title} (${s.type})</option>`).join('');
             }
         }
 
@@ -123,12 +171,17 @@
                 const dateStr = new Date().toLocaleDateString();
 
                 if (type === 'new') {
-                    // Crea una nuova struttura a capitoli
+                    const wType = document.getElementById('workType').value;
                     const newStory = {
                         title: document.getElementById('storyTitle').value,
                         author: document.getElementById('storyAuthor').value,
+                        type: wType,
+                        fandom: wType === 'fanfiction' ? document.getElementById('storyFandom').value : '',
+                        genre: wType !== 'fanfiction' ? document.getElementById('storyGenre').value : '',
+                        age: document.getElementById('storyAge').value,
+                        tags: document.getElementById('storyShips').value,
+                        summary: document.getElementById('storySummary').value,
                         cover: imageDataUrl,
-                        category: document.getElementById('storyCategory').value,
                         date: dateStr,
                         likes: 0,
                         comments: [],
@@ -136,30 +189,4 @@
                     };
                     stories.unshift(newStory);
                 } else {
-                    // Aggiunge un capitolo a una storia esistente
                     const selectedIdx = document.getElementById('existingStorySelect').value;
-                    const chapName = document.getElementById('chapterNumber').value || `Chapter ${stories[selectedIdx].chapters.length + 1}`;
-                    stories[selectedIdx].chapters.push({
-                        name: chapName,
-                        content: contentText
-                    });
-                }
-
-                localStorage.setItem('userStories', JSON.stringify(stories));
-                document.getElementById('successNotice').style.display = 'block';
-                document.getElementById('storyForm').reset();
-                togglePublishType();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-
-            if (type === 'new' && file) {
-                const reader = new FileReader();
-                reader.onloadend = () => saveData(reader.result);
-                reader.readAsDataURL(file);
-            } else {
-                saveData('');
-            }
-        });
-    </script>
-</body>
-</html>
