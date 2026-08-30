@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="google-site-verification" content="gIDjhlWfW9kuXWKuYjsGrtLcL4OaBtNEu-2DGP-EjC8" />    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="8Pq_7vX_I3I0H3f0Z3V6z5X8Y2x5V3z5X8Y2x5V3z5X" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FictionHub</title>
     <style>
@@ -13,28 +14,20 @@
             padding: 20px 16px;
             overflow-x: hidden;
         }
-        
-        /* Header */
         header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid #1a1a1a; margin-bottom: 30px; position: relative; }
         .logo { font-family: Georgia, serif; font-size: 22px; font-style: italic; text-decoration: none; color: #ffffff; }
         .logo span { color: #9e1638; font-style: normal; }
         .menu-icon { font-size: 24px; color: #444; }
-        
         .issue-tag { font-size: 10px; letter-spacing: 2px; color: #666; text-transform: uppercase; margin-bottom: 15px; }
         h1.main-title { font-family: Georgia, serif; font-size: 42px; font-weight: 400; line-height: 1.1; margin-bottom: 20px; }
         h1.main-title em { font-style: italic; }
         .description { font-size: 16px; line-height: 1.5; color: #a0a0a0; margin-bottom: 30px; }
-        
         .btn-primary { display: flex; align-items: center; justify-content: center; background-color: #9e1638; color: white; text-decoration: none; padding: 14px; border-radius: 2px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
         .btn-secondary { display: flex; align-items: center; justify-content: center; background-color: transparent; color: white; text-decoration: none; padding: 14px; border: 1px solid #222; border-radius: 2px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 40px; }
-
-        /* Area Feed Storie */
         #storiesDynamicArea { margin-bottom: 40px; }
         .empty-stories-container { background-color: #0a0a0a; border: 1px dashed #333; padding: 40px 20px; text-align: center; border-radius: 4px; }
         .empty-text { color: #777; font-size: 16px; margin-bottom: 15px; }
         .write-link { color: #9e1638; text-decoration: underline; font-weight: 600; font-size: 16px; display: inline-block; cursor: pointer; }
-
-        /* Card Storia */
         .story-card { background-color: #0a0a0a; border: 1px solid #111; padding: 20px; border-radius: 4px; margin-bottom: 25px; }
         .story-cover-box { width: 100%; height: 240px; border-radius: 4px; margin-bottom: 15px; background: linear-gradient(135deg, #111, #1f1f1f); border: 1px solid #1c1c1c; display: flex; align-items: center; justify-content: center; }
         .story-cover-box img { width: 100%; height: 100%; object-fit: cover; }
@@ -47,117 +40,76 @@
         .story-author { font-size: 12px; color: #777; margin-bottom: 10px; }
         .summary-box { background: #111; padding: 12px; border-radius: 4px; font-size: 14px; color: #aaa; margin-bottom: 15px; border-left: 3px solid #555; font-style: italic; }
         .story-desc { font-size: 16px; color: #dddddd; line-height: 1.5; white-space: pre-line; }
-
-        /* Griglia Tendenze */
         .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; margin-top: 40px; }
         .section-header h2 { font-family: Georgia, serif; font-size: 32px; font-weight: 400; line-height: 1.1; }
         .two-column-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px; }
         .grid-card { display: flex; flex-direction: column; }
         .grid-cover { background: linear-gradient(135deg, #111, #1f1f1f); aspect-ratio: 3 / 4; border-radius: 4px; display: flex; align-items: center; justify-content: center; border: 1px solid #151515; }
-        
-        /* Tag */
         .popular-tags-section { margin-top: 40px; margin-bottom: 20px; }
         .tags-label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
         .tags-container { display: flex; flex-wrap: wrap; gap: 10px; padding-bottom: 30px; border-bottom: 1px solid #111; }
         .tag-pill { background: transparent; color: #888; border: 1px solid #222; padding: 8px 14px; font-size: 13px; border-radius: 2px; text-decoration: none; cursor: pointer; }
-
-        /* Box Categorie */
         .category-box { background-color: #0a0a0a; border: 1px solid #111; padding: 20px; margin-bottom: 12px; border-radius: 4px; text-decoration: none; display: block; color: #ffffff; cursor: pointer; }
         .category-box:hover { border-color: #9e1638; }
         .category-title { font-family: Georgia, serif; font-size: 22px; margin-bottom: 4px; }
         .category-desc { font-size: 12px; color: #666; }
-        
-        /* Bottoni Età */
         .age-btn { flex: 1; background: #0a0a0a; border: 1px solid #222; color: #fff; padding: 12px; border-radius: 4px; font-size: 12px; text-transform: uppercase; cursor: pointer; }
-
+        .age-btn:hover { border-color: #9e1638; }
         footer { margin-top: 50px; padding-top: 40px; padding-bottom: 40px; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
-
     <header>
         <a href="index.html" class="logo">Narrativa <span>Centro</span></a>
         <div class="menu-icon">☰</div>
     </header>
-    
     <div class="issue-tag">Issue 001 • A Community for Storytellers</div>
     <h1 class="main-title">Where stories<br><em>find their</em><br>readers.</h1>
     <p class="description">Publish fanfiction, original novels and comic-panel epics. Organise your work into chapters, tag it, and let a community of readers respond with kudos and comments.</p>
-    
     <a href="publish.html" class="btn-primary">Start writing</a>
     <a href="#categories" class="btn-secondary">Browse categories</a>
 
-    <!-- AREA DELLE STORIE DINAMICHE -->
     <div id="storiesDynamicArea"></div>
 
-    <!-- Trending -->
-    <div class="section-header">
-        <h2>Trending this<br>week</h2>
-    </div>
+    <div class="section-header"><h2>Trending this week</h2></div>
     <div class="two-column-grid">
         <div class="grid-card"><div class="grid-cover"><span style="color:#222; font-size:32px;">★</span></div></div>
         <div class="grid-card"><div class="grid-cover"><span style="color:#222; font-size:32px;">★</span></div></div>
     </div>
-
-    <!-- Tags -->
     <div class="popular-tags-section">
         <div class="tags-label">Popular Tags</div>
         <div class="tags-container">
             <span class="tag-pill" onclick="loadStories('all', 'all')">all works</span>
-            <span class="tag-pill">adventure</span>
-            <span class="tag-pill">magic</span>
-            <span class="tag-pill">dark</span>
+            <span class="tag-pill">adventure</span><span class="tag-pill">magic</span><span class="tag-pill">dark</span>
         </div>
     </div>
-
-    <!-- Categorie -->
     <div class="section-header" id="categories"><h2>Browse by Type</h2></div>
-    
     <div class="category-box" onclick="loadStories('all', 'fanfiction')">
-        <div class="category-title">Fanfiction</div>
-        <div class="category-desc">Stories based on existing fandoms and worlds.</div>
+        <div class="category-title">Fanfiction</div><div class="category-desc">Stories based on existing fandoms and worlds.</div>
     </div>
     <div class="category-box" onclick="loadStories('all', 'original')">
-        <div class="category-title">Original Novels</div>
-        <div class="category-desc">Fresh, fully original novels and stories.</div>
+        <div class="category-title">Original Novels</div><div class="category-desc">Fresh, fully original novels and stories.</div>
     </div>
     <div class="category-box" onclick="loadStories('all', 'comic')">
-        <div class="category-title">Comics</div>
-        <div class="category-desc">Visual stories and graphic panels.</div>
+        <div class="category-title">Comics</div><div class="category-desc">Visual stories and graphic panels.</div>
     </div>
-
-    <!-- Età -->
     <div class="section-header"><h2>Age Ratings</h2></div>
     <div style="display:flex; gap:10px; margin-bottom:40px;">
         <button class="age-btn" onclick="loadStories('kids', 'all')">Kids</button>
         <button class="age-btn" onclick="loadStories('teens', 'all')">Teens</button>
         <button class="age-btn" onclick="loadStories('adults', 'all')">Adults</button>
     </div>
-
-    <footer>
-        <div class="logo" style="font-size:18px;">FictionHub</div>
-    </footer>
+    <footer><div class="logo" style="font-size:18px;">FictionHub</div></footer>
 
     <script>
         function loadStories(ageFilter, typeFilter) {
             const container = document.getElementById('storiesDynamicArea');
             let stories = [];
-            
-            try {
-                stories = JSON.parse(localStorage.getItem('userStories')) || [];
-            } catch(e) {
-                stories = [];
-            }
-
+            try { stories = JSON.parse(localStorage.getItem('userStories')) || []; } catch(e) { stories = []; }
             let filtered = stories;
-            if (ageFilter && ageFilter !== 'all') {
-                filtered = filtered.filter(function(s) { return s.age === ageFilter; });
-            }
-            if (typeFilter && typeFilter !== 'all') {
-                filtered = filtered.filter(function(s) { return s.type === typeFilter; });
-            }
+            if (ageFilter && ageFilter !== 'all') { filtered = filtered.filter(function(s) { return s.age === ageFilter; }); }
+            if (typeFilter && typeFilter !== 'all') { filtered = filtered.filter(function(s) { return s.type === typeFilter; }); }
 
-            // MESSAGGIO IN INGLESE DEFINITIVO
             if (filtered.length === 0) {
                 container.innerHTML = `
                     <div class="empty-stories-container">
@@ -167,4 +119,6 @@
                 `;
                 return;
             }
-
+            let html = '<div class="section-header"><h2>Recent Feed</h2></div>';
+            filtered.forEach((story) => {
+                const coverHtml = story.cover ? `<div class="story-cover-box"><img src="${story.cover}"></div>` : `<div class="story-cover-box"><span style="font-size:32px; color:#333;">📚</span></div>`;
