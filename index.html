@@ -12,11 +12,26 @@
         header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid #1a1a1a; margin-bottom: 30px; position: relative; }
         .logo { font-family: Georgia, serif; font-size: 22px; font-style: italic; text-decoration: none; color: #ffffff; }
         .logo span { color: #9e1638; font-style: normal; }
-        .menu-icon { font-size: 24px; cursor: pointer; padding: 5px; user-select: none; }
+        .menu-icon { font-size: 24px; cursor: pointer; padding: 5px; user-select: none; position: relative; z-index: 101; }
 
-        /* Menu Hamburger */
-        .dropdown-menu { display: none; position: absolute; top: 45px; right: 0; background-color: #0a0a0a; border: 1px solid #222; border-radius: 4px; width: 180px; padding: 5px 0; box-shadow: 0px 4px 12px rgba(0,0,0,0.5); z-index: 100; }
-        .dropdown-menu.show { display: block; }
+        /* Menu Hamburger Corretto ed Evidenziato */
+        .dropdown-menu { 
+            display: none; 
+            position: absolute; 
+            top: 45px; 
+            right: 0; 
+            background-color: #0a0a0a; 
+            border: 1px solid #222; 
+            border-radius: 4px; 
+            width: 180px; 
+            padding: 5px 0; 
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.8); 
+            z-index: 100; 
+        }
+        /* Classe speciale per forzare l'apertura del menu */
+        .dropdown-menu.show { 
+            display: block !important; 
+        }
         .dropdown-menu a { display: block; color: #aaa; text-decoration: none; padding: 12px 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #111; }
         .dropdown-menu a:last-child { border-bottom: none; }
         .dropdown-menu a:hover { color: #fff; background-color: #111; }
@@ -45,12 +60,11 @@
         .badge-type { background-color: #9e1638; color: #fff; font-size: 9px; padding: 4px 8px; text-transform: uppercase; font-weight: 600; border-radius: 2px; }
         .badge-sub { background-color: #222; color: #ccc; font-size: 9px; padding: 4px 8px; font-weight: 600; border-radius: 2px; border: 1px solid #333; }
         .tag-age { border: 1px solid #0056b3; color: #0088ff; font-size: 9px; padding: 4px 8px; text-transform: uppercase; border-radius: 2px; }
+        .story-tag-pill { font-size: 11px; color: #888; background: #141414; padding: 3px 8px; border-radius: 2px; border: 1px solid #222; margin-right: 4px; margin-bottom: 4px; display: inline-block; }
         
         .story-title { font-family: Georgia, serif; font-size: 24px; margin-bottom: 6px; color: #fff; }
         .story-author { font-size: 12px; text-transform: uppercase; color: #777; margin-bottom: 10px; }
         .summary-box { background: #111; padding: 12px; border-radius: 4px; font-size: 14px; color: #aaa; margin-bottom: 15px; border-left: 3px solid #555; font-style: italic; }
-        .story-tags-container { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
-        .story-tag-pill { font-size: 11px; color: #888; background: #141414; padding: 3px 8px; border-radius: 2px; border: 1px solid #222; }
         .story-desc { font-size: 16px; color: #dddddd; line-height: 1.5; white-space: pre-line; }
 
         /* Sezioni statiche originarie */
@@ -66,13 +80,12 @@
         .tags-container { display: flex; flex-wrap: wrap; gap: 10px; padding-bottom: 30px; border-bottom: 1px solid #111; }
         .tag-pill { background: transparent; color: #888; border: 1px solid #222; padding: 8px 14px; font-size: 13px; border-radius: 2px; text-decoration: none; }
 
-        /* Divisione Principale che andava bene */
+        /* Divisione Categorie */
         .category-box { background-color: #0a0a0a; border: 1px solid #111; padding: 24px; margin-bottom: 16px; border-radius: 4px; text-decoration: none; display: block; color: #ffffff; text-align: left; cursor: pointer; }
         .category-box:hover { border-color: #9e1638; }
         .category-title { font-family: Georgia, serif; font-size: 24px; margin-bottom: 8px; }
         .category-desc { font-size: 13px; color: #777; }
         
-        /* Bottoni Età */
         .age-btn { flex: 1; background: #0a0a0a; border: 1px solid #222; color: #fff; padding: 12px; border-radius: 4px; font-size: 12px; text-transform: uppercase; cursor: pointer; }
         .age-btn:hover { border-color: #9e1638; }
 
@@ -83,8 +96,8 @@
 
     <header>
         <a href="index.html" class="logo">Narrativa <span>Centro</span></a>
-        <div>
-            <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div style="position: relative;">
+            <div class="menu-icon" onclick="toggleMenu(event)">☰</div>
             <div class="dropdown-menu" id="hamburgerDropdown">
                 <a href="index.html">Home</a>
                 <a href="publish.html">Start Writing</a>
@@ -99,7 +112,7 @@
     <a href="publish.html" class="btn-primary">Start writing</a>
     <a href="#categories" class="btn-secondary">Browse categories</a>
 
-    <!-- AREA DELLE STORIE (Con la scritta esatta che volevi) -->
+    <!-- AREA DELLE STORIE -->
     <div id="storiesDynamicArea"></div>
 
     <!-- Trending This Week -->
@@ -124,7 +137,7 @@
         </div>
     </div>
 
-    <!-- LA DIVISIONE CORRETTA PER TIPOLOGIA -->
+    <!-- Categorie per Tipologia -->
     <div class="section-header" id="categories"><h2>Browse by Type</h2></div>
     
     <div class="category-box" onclick="loadStories('all', 'fanfiction')">
@@ -135,9 +148,3 @@
         <div class="category-title">Original Novels</div>
         <div class="category-desc">Fresh, fully original light-novels and fiction books.</div>
     </div>
-    <div class="category-box" onclick="loadStories('all', 'comic')">
-        <div class="category-title">Comics</div>
-        <div class="category-desc">Visual stories and graphic panels.</div>
-    </div>
-
-    <!-- FILTRI PER ETÀ AGGIUNTIVI IN BASSO -->
