@@ -3,108 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Narrativa Centro - FictionHub</title>
+    <title>FictionHub</title>
     <style>
-        /* RESET COMPLETO PER UTENTI MOBILE - ELIMINA OGNI BLOCCO DI SCORRIMENTO */
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-        }
-        html {
-            background-color: #050505;
-            overflow-x: hidden;
-            overflow-y: scroll !important;
-            -webkit-overflow-scrolling: touch;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
             background-color: #050505; 
             color: #ffffff; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
             padding: 20px 16px;
-            min-height: 100vh;
+            overflow-x: hidden;
         }
         
-        /* Header */
+        /* Header fisso e pulito */
         header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid #1a1a1a; margin-bottom: 30px; position: relative; }
         .logo { font-family: Georgia, serif; font-size: 22px; font-style: italic; text-decoration: none; color: #ffffff; }
         .logo span { color: #9e1638; font-style: normal; }
         
-        /* Area Menu Hamburger Semplificata e Sicura */
+        /* Menu Hamburger Standard */
         .menu-container { position: relative; }
-        .menu-icon { font-size: 26px; cursor: pointer; padding: 10px; user-select: none; color: #ffffff; }
+        .menu-icon { font-size: 24px; cursor: pointer; padding: 5px; user-select: none; }
         .dropdown-menu { 
             display: none; 
             position: absolute; 
-            top: 45px; 
+            top: 40px; 
             right: 0; 
             background-color: #0a0a0a; 
             border: 1px solid #222; 
             border-radius: 4px; 
             width: 180px; 
-            padding: 5px 0; 
-            box-shadow: 0px 4px 15px rgba(0,0,0,0.9); 
-            z-index: 9999; 
+            z-index: 1000;
         }
-        .dropdown-menu a { display: block; color: #aaa; text-decoration: none; padding: 14px 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #111; text-align: left; }
+        .dropdown-menu a { display: block; color: #aaa; text-decoration: none; padding: 12px 16px; font-size: 13px; text-transform: uppercase; border-bottom: 1px solid #111; }
         .dropdown-menu a:last-child { border-bottom: none; }
-
+        
         .issue-tag { font-size: 10px; letter-spacing: 2px; color: #666; text-transform: uppercase; margin-bottom: 15px; }
         h1.main-title { font-family: Georgia, serif; font-size: 42px; font-weight: 400; line-height: 1.1; margin-bottom: 20px; }
         h1.main-title em { font-style: italic; }
         .description { font-size: 16px; line-height: 1.5; color: #a0a0a0; margin-bottom: 30px; }
         
         .btn-primary { display: flex; align-items: center; justify-content: center; background-color: #9e1638; color: white; text-decoration: none; padding: 14px; border-radius: 2px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
-        .btn-primary::after { content: " ✎"; margin-left: 8px; }
         .btn-secondary { display: flex; align-items: center; justify-content: center; background-color: transparent; color: white; text-decoration: none; padding: 14px; border: 1px solid #222; border-radius: 2px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 40px; }
 
-        /* Contenitore Feed Dinamico */
-        #storiesDynamicArea { margin-bottom: 40px; display: block; }
+        /* Area Feed Storie */
+        #storiesDynamicArea { margin-bottom: 40px; }
         .empty-stories-container { background-color: #0a0a0a; border: 1px dashed #333; padding: 40px 20px; text-align: center; border-radius: 4px; }
         .empty-text { color: #777; font-size: 16px; margin-bottom: 15px; }
-        .write-link { color: #9e1638; text-decoration: underline; font-weight: 600; font-size: 16px; cursor: pointer; display: inline-block; }
+        .write-link { color: #9e1638; text-decoration: underline; font-weight: 600; font-size: 16px; display: inline-block; cursor: pointer; }
 
-        /* Schede storie pubblicate */
-        .story-card { background-color: #0a0a0a; border: 1px solid #111; padding: 20px; border-radius: 4px; margin-bottom: 25px; text-align: left; }
-        .story-cover-box { width: 100%; height: 260px; border-radius: 4px; margin-bottom: 15px; overflow: hidden; background: linear-gradient(135deg, #111, #1f1f1f); border: 1px solid #1c1c1c; display: flex; align-items: center; justify-content: center; }
+        /* Card Storia */
+        .story-card { background-color: #0a0a0a; border: 1px solid #111; padding: 20px; border-radius: 4px; margin-bottom: 25px; }
+        .story-cover-box { width: 100%; height: 240px; border-radius: 4px; margin-bottom: 15px; background: linear-gradient(135deg, #111, #1f1f1f); border: 1px solid #1c1c1c; display: flex; align-items: center; justify-content: center; }
         .story-cover-box img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .meta-line { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
+        .meta-line { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
         .badge-type { background-color: #9e1638; color: #fff; font-size: 9px; padding: 4px 8px; text-transform: uppercase; font-weight: 600; border-radius: 2px; }
-        .badge-sub { background-color: #222; color: #ccc; font-size: 9px; padding: 4px 8px; font-weight: 600; border-radius: 2px; border: 1px solid #333; }
+        .badge-sub { background-color: #222; color: #ccc; font-size: 9px; padding: 4px 8px; border-radius: 2px; }
         .tag-age { border: 1px solid #0056b3; color: #0088ff; font-size: 9px; padding: 4px 8px; text-transform: uppercase; border-radius: 2px; }
         .story-tag-pill { font-size: 11px; color: #888; background: #141414; padding: 3px 8px; border-radius: 2px; border: 1px solid #222; margin-right: 4px; margin-bottom: 4px; display: inline-block; }
-        
-        .story-title { font-family: Georgia, serif; font-size: 24px; margin-bottom: 6px; color: #fff; }
-        .story-author { font-size: 12px; text-transform: uppercase; color: #777; margin-bottom: 10px; }
+        .story-title { font-family: Georgia, serif; font-size: 24px; margin-bottom: 6px; }
+        .story-author { font-size: 12px; color: #777; margin-bottom: 10px; }
         .summary-box { background: #111; padding: 12px; border-radius: 4px; font-size: 14px; color: #aaa; margin-bottom: 15px; border-left: 3px solid #555; font-style: italic; }
         .story-desc { font-size: 16px; color: #dddddd; line-height: 1.5; white-space: pre-line; }
 
-        /* Elementi grafici della Home */
+        /* Griglia Tendenze */
         .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; margin-top: 40px; }
         .section-header h2 { font-family: Georgia, serif; font-size: 32px; font-weight: 400; line-height: 1.1; }
-        .section-header .section-link { font-size: 11px; letter-spacing: 2px; color: #666; text-decoration: none; text-transform: uppercase; padding-bottom: 4px; }
         .two-column-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px; }
         .grid-card { display: flex; flex-direction: column; }
         .grid-cover { background: linear-gradient(135deg, #111, #1f1f1f); aspect-ratio: 3 / 4; border-radius: 4px; display: flex; align-items: center; justify-content: center; border: 1px solid #151515; }
         
+        /* Tag */
         .popular-tags-section { margin-top: 40px; margin-bottom: 20px; }
         .tags-label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
         .tags-container { display: flex; flex-wrap: wrap; gap: 10px; padding-bottom: 30px; border-bottom: 1px solid #111; }
-        .tag-pill { background: transparent; color: #888; border: 1px solid #222; padding: 8px 14px; font-size: 13px; border-radius: 2px; text-decoration: none; }
+        .tag-pill { background: transparent; color: #888; border: 1px solid #222; padding: 8px 14px; font-size: 13px; border-radius: 2px; text-decoration: none; cursor: pointer; }
 
-        /* Box delle Categorie Cliccabili con Altezze Sicure */
-        .category-box { background-color: #0a0a0a; border: 1px solid #111; padding: 18px 20px; margin-bottom: 12px; border-radius: 4px; text-decoration: none; display: block; color: #ffffff; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-        .category-box:active { border-color: #9e1638; background-color: #111; }
+        /* Box Categorie Grandi e Sicure */
+        .category-box { background-color: #0a0a0a; border: 1px solid #111; padding: 20px; margin-bottom: 12px; border-radius: 4px; text-decoration: none; display: block; color: #ffffff; cursor: pointer; }
+        .category-box:hover { border-color: #9e1638; }
         .category-title { font-family: Georgia, serif; font-size: 22px; margin-bottom: 4px; }
         .category-desc { font-size: 12px; color: #666; }
         
         /* Bottoni Età */
-        .age-buttons-row { display: flex; gap: 10px; margin-bottom: 40px; width: 100%; }
         .age-btn { flex: 1; background: #0a0a0a; border: 1px solid #222; color: #fff; padding: 12px; border-radius: 4px; font-size: 12px; text-transform: uppercase; cursor: pointer; }
-        .age-btn:active { border-color: #9e1638; }
+        .age-btn:hover { border-color: #9e1638; }
 
-        footer { margin-top: 60px; padding-top: 40px; padding-bottom: 40px; border-top: 1px solid #111; text-align: left; }
+        footer { margin-top: 50px; padding-top: 40px; padding-bottom: 40px; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
@@ -112,7 +95,7 @@
     <header>
         <a href="index.html" class="logo">Narrativa <span>Centro</span></a>
         <div class="menu-container">
-            <div class="menu-icon" id="menuButton">Menu ☰</div>
+            <div class="menu-icon" onclick="toggleMenu()">Menu ☰</div>
             <div class="dropdown-menu" id="hamburgerDropdown">
                 <a href="index.html">Home</a>
                 <a href="publish.html">Start Writing</a>
@@ -127,32 +110,58 @@
     <a href="publish.html" class="btn-primary">Start writing</a>
     <a href="#categories" class="btn-secondary">Browse categories</a>
 
-    <!-- AREA DELLE STORIE -->
+    <!-- Area Storie -->
     <div id="storiesDynamicArea"></div>
 
-    <!-- Trending This Week -->
+    <!-- Trending -->
     <div class="section-header">
         <h2>Trending this<br>week</h2>
-        <a href="#categories" class="section-link">View all</a>
     </div>
     <div class="two-column-grid">
         <div class="grid-card"><div class="grid-cover"><span style="color:#222; font-size:32px;">★</span></div></div>
         <div class="grid-card"><div class="grid-cover"><span style="color:#222; font-size:32px;">★</span></div></div>
     </div>
 
-    <!-- Popular Tags -->
+    <!-- Tags -->
     <div class="popular-tags-section">
         <div class="tags-label">Popular Tags</div>
         <div class="tags-container">
-            <a href="#" class="tag-pill" id="resetFilterTag">all works</a>
-            <a href="#" class="tag-pill">adventure</a>
-            <a href="#" class="tag-pill">magic</a>
-            <a href="#" class="tag-pill">dark</a>
-            <a href="#" class="tag-pill">fantasy</a>
+            <span class="tag-pill" onclick="loadStories('all', 'all')">all works</span>
+            <span class="tag-pill">adventure</span>
+            <span class="tag-pill">magic</span>
+            <span class="tag-pill">dark</span>
         </div>
     </div>
 
-    <!-- Sezione Tipologie -->
+    <!-- Categorie -->
     <div class="section-header" id="categories"><h2>Browse by Type</h2></div>
     
-    <div class="category-box" id="boxFanfiction">
+    <div class="category-box" onclick="loadStories('all', 'fanfiction')">
+        <div class="category-title">Fanfiction</div>
+        <div class="category-desc">Stories based on existing fandoms and worlds.</div>
+    </div>
+    <div class="category-box" onclick="loadStories('all', 'original')">
+        <div class="category-title">Original Novels</div>
+        <div class="category-desc">Fresh, fully original novels and stories.</div>
+    </div>
+    <div class="category-box" onclick="loadStories('all', 'comic')">
+        <div class="category-title">Comics</div>
+        <div class="category-desc">Visual stories and graphic panels.</div>
+    </div>
+
+    <!-- Età -->
+    <div class="section-header"><h2>Age Ratings</h2></div>
+    <div style="display:flex; gap:10px; margin-bottom:40px;">
+        <button class="age-btn" onclick="loadStories('kids', 'all')">Kids</button>
+        <button class="age-btn" onclick="loadStories('teens', 'all')">Teens</button>
+        <button class="age-btn" onclick="loadStories('adults', 'all')">Adults</button>
+    </div>
+
+    <footer>
+        <div class="logo" style="font-size:18px;">FictionHub</div>
+    </footer>
+
+    <script>
+        // Sistema Menu Semplificato
+        function toggleMenu() {
+            const menu = document.getElementById('hamburgerDropdown');
