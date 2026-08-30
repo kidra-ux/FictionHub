@@ -12,27 +12,26 @@
         header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid #1a1a1a; margin-bottom: 30px; position: relative; }
         .logo { font-family: Georgia, serif; font-size: 22px; font-style: italic; text-decoration: none; color: #ffffff; }
         .logo span { color: #9e1638; font-style: normal; }
-        .menu-icon { font-size: 24px; cursor: pointer; padding: 5px; user-select: none; position: relative; z-index: 101; }
+        
+        /* Menu hamburger ad alta sensibilità per il tocco mobile */
+        .menu-container { position: relative; display: inline-block; }
+        .menu-icon { font-size: 28px; cursor: pointer; padding: 12px; user-select: none; position: relative; z-index: 105; color: #ffffff; margin: -12px; }
 
-        /* Menu Hamburger Corretto ed Evidenziato */
+        /* Tendina del menu posizionata e forzata */
         .dropdown-menu { 
             display: none; 
             position: absolute; 
-            top: 45px; 
+            top: 40px; 
             right: 0; 
             background-color: #0a0a0a; 
             border: 1px solid #222; 
             border-radius: 4px; 
             width: 180px; 
             padding: 5px 0; 
-            box-shadow: 0px 4px 12px rgba(0,0,0,0.8); 
-            z-index: 100; 
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.9); 
+            z-index: 9999 !important; 
         }
-        /* Classe speciale per forzare l'apertura del menu */
-        .dropdown-menu.show { 
-            display: block !important; 
-        }
-        .dropdown-menu a { display: block; color: #aaa; text-decoration: none; padding: 12px 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #111; }
+        .dropdown-menu a { display: block; color: #aaa; text-decoration: none; padding: 14px 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #111; }
         .dropdown-menu a:last-child { border-bottom: none; }
         .dropdown-menu a:hover { color: #fff; background-color: #111; }
 
@@ -45,13 +44,12 @@
         .btn-primary::after { content: " ✎"; margin-left: 8px; }
         .btn-secondary { display: flex; align-items: center; justify-content: center; background-color: transparent; color: white; text-decoration: none; padding: 14px; border: 1px solid #222; border-radius: 2px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 40px; }
 
-        /* Contenitore Scritta Vuota e Storie */
+        /* Contenitore Storie */
         #storiesDynamicArea { margin-bottom: 40px; }
         .empty-stories-container { background-color: #0a0a0a; border: 1px dashed #333; padding: 40px 20px; text-align: center; border-radius: 4px; }
         .empty-text { color: #777; font-size: 16px; margin-bottom: 15px; }
         .write-link { color: #9e1638; text-decoration: underline; font-weight: 600; font-size: 16px; cursor: pointer; }
 
-        /* Grafica schede storie caricate */
         .story-card { background-color: #0a0a0a; border: 1px solid #111; padding: 20px; border-radius: 4px; margin-bottom: 25px; text-align: left; }
         .story-cover-box { width: 100%; height: 260px; border-radius: 4px; margin-bottom: 15px; overflow: hidden; background: linear-gradient(135deg, #111, #1f1f1f); border: 1px solid #1c1c1c; display: flex; align-items: center; justify-content: center; }
         .story-cover-box img { width: 100%; height: 100%; object-fit: cover; }
@@ -67,7 +65,7 @@
         .summary-box { background: #111; padding: 12px; border-radius: 4px; font-size: 14px; color: #aaa; margin-bottom: 15px; border-left: 3px solid #555; font-style: italic; }
         .story-desc { font-size: 16px; color: #dddddd; line-height: 1.5; white-space: pre-line; }
 
-        /* Sezioni statiche originarie */
+        /* Elementi grafici */
         .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; margin-top: 40px; }
         .section-header h2 { font-family: Georgia, serif; font-size: 32px; font-weight: 400; line-height: 1.1; }
         .section-header .section-link { font-size: 11px; letter-spacing: 2px; color: #666; text-decoration: none; text-transform: uppercase; padding-bottom: 4px; }
@@ -80,11 +78,11 @@
         .tags-container { display: flex; flex-wrap: wrap; gap: 10px; padding-bottom: 30px; border-bottom: 1px solid #111; }
         .tag-pill { background: transparent; color: #888; border: 1px solid #222; padding: 8px 14px; font-size: 13px; border-radius: 2px; text-decoration: none; }
 
-        /* Divisione Categorie */
-        .category-box { background-color: #0a0a0a; border: 1px solid #111; padding: 24px; margin-bottom: 16px; border-radius: 4px; text-decoration: none; display: block; color: #ffffff; text-align: left; cursor: pointer; }
+        /* Scatole delle Categorie ottimizzate in altezza per far salire i Comic */
+        .category-box { background-color: #0a0a0a; border: 1px solid #111; padding: 16px 20px; margin-bottom: 12px; border-radius: 4px; text-decoration: none; display: block; color: #ffffff; text-align: left; cursor: pointer; }
         .category-box:hover { border-color: #9e1638; }
-        .category-title { font-family: Georgia, serif; font-size: 24px; margin-bottom: 8px; }
-        .category-desc { font-size: 13px; color: #777; }
+        .category-title { font-family: Georgia, serif; font-size: 22px; margin-bottom: 4px; }
+        .category-desc { font-size: 12px; color: #666; }
         
         .age-btn { flex: 1; background: #0a0a0a; border: 1px solid #222; color: #fff; padding: 12px; border-radius: 4px; font-size: 12px; text-transform: uppercase; cursor: pointer; }
         .age-btn:hover { border-color: #9e1638; }
@@ -96,11 +94,11 @@
 
     <header>
         <a href="index.html" class="logo">Narrativa <span>Centro</span></a>
-        <div style="position: relative;">
-            <div class="menu-icon" onclick="toggleMenu(event)">☰</div>
+        <div class="menu-container">
+            <div class="menu-icon" onclick="handleMenuClick(event)">布局 ☰</div>
             <div class="dropdown-menu" id="hamburgerDropdown">
-                <a href="index.html">Home</a>
-                <a href="publish.html">Start Writing</a>
+                <a href="index.html" onclick="closeMenu()">Home</a>
+                <a href="publish.html" onclick="closeMenu()">Start Writing</a>
             </div>
         </div>
     </header>
@@ -112,7 +110,7 @@
     <a href="publish.html" class="btn-primary">Start writing</a>
     <a href="#categories" class="btn-secondary">Browse categories</a>
 
-    <!-- AREA DELLE STORIE -->
+    <!-- AREA DELLE STORIE DINAMICHE -->
     <div id="storiesDynamicArea"></div>
 
     <!-- Trending This Week -->
@@ -137,7 +135,7 @@
         </div>
     </div>
 
-    <!-- Categorie per Tipologia -->
+    <!-- SEZIONE TIPOLOGIE COMPATTA (Tutti e 3 i box saliranno molto più in alto) -->
     <div class="section-header" id="categories"><h2>Browse by Type</h2></div>
     
     <div class="category-box" onclick="loadStories('all', 'fanfiction')">
@@ -146,5 +144,3 @@
     </div>
     <div class="category-box" onclick="loadStories('all', 'original')">
         <div class="category-title">Original Novels</div>
-        <div class="category-desc">Fresh, fully original light-novels and fiction books.</div>
-    </div>
